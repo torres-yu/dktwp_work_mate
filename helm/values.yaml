@@ -1,0 +1,90 @@
+replicaCount: 2
+
+image:
+  repository: workengine1.kr-central-1.kcr.dev/workengine1-repo/eapproval-be-kep
+  tag: dev-20230324-01
+  pullPolicy: IfNotPresent
+
+service:
+  port: 80
+  protocol : TCP
+  targetPort: 8080
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 500m
+    memory: 512Mi
+
+env:
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: dev
+    - name: DB_CONFIG_HOST
+      valueFrom:
+        configMapKeyRef:
+          name: approval-dev-config
+          key: db-config-host
+    - name: DB_CONFIG_PORT
+      valueFrom:
+        configMapKeyRef:
+          name: approval-dev-config
+          key: db-config-port
+    - name: DB_CONFIG_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: approval-dev-secret
+          key: db-config-username
+    - name: DB_CONFIG_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: approval-dev-secret
+          key: db-config-password
+    - name: DB_CONFIG_DATABASE
+      valueFrom:
+        configMapKeyRef:
+          name: approval-dev-config
+          key: db-config-database
+    - name: DB_CONFIG_AUDIT_HOST
+      valueFrom:
+        configMapKeyRef:
+          name: approval-dev-config
+          key: db-config-audit-host
+    - name: DB_CONFIG_AUDIT_PORT
+      valueFrom:
+        configMapKeyRef:
+          name: approval-dev-config
+          key: db-config-audit-port
+    - name: DB_CONFIG_AUDIT_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: approval-dev-secret
+          key: db-config-audit-username
+    - name: DB_CONFIG_AUDIT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: approval-dev-secret
+          key: db-config-audit-password
+    - name: DB_CONFIG_AUDIT_DATABASE
+      valueFrom:
+        configMapKeyRef:
+          name: approval-dev-config
+          key: db-config-audit-database
+
+tolerations:
+  - key: common
+    operator: Equal
+    value: "true"
+    effect: NoExecute
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kakaoi.io/kke-nodepool
+              operator: In
+              values:
+                - common-worker

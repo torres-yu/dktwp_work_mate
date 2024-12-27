@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: approval-sandbox
+  labels:
+    app.kubernetes.io/name: eapproval
+spec:
+  project: default
+  source:
+    repoURL: 'github.dktechin.in/torres-bro/eapproval-test'
+    targetRevision: HEAD
+    path: my-java-app
+  destination:
+    server: 'kw-sandbox-admin@kw-sandbox'
+    namespace: approval-sandbox
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
