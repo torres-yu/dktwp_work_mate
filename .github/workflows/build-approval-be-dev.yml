@@ -5,8 +5,8 @@
 name: Build DEV by Tag
 on:
   push:
-    tags:
-      - 'DEV_BE_*'
+    branches:
+      - master
 
 env:
   # Build에 사용될 branch
