@@ -22,7 +22,7 @@ env:
 
 jobs:
   build:
-    runs-on: k8s
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout DockerFile
         uses: actions/checkout@v3
