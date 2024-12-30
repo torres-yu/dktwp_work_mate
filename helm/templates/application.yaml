@@ -3,11 +3,12 @@ kind: Application
 metadata:
   name: {{ .Chart.Name }}
   namespace: approval-sandbox
-  labels:
-    app.kubernetes.io/name: eapproval
 spec:
   project: default
   source:
+    helm:
+      valueFiles:
+        - helm/values.yaml
     repoURL: 'github.dktechin.in/torres-bro/eapproval-test'
     targetRevision: HEAD
     path: my-java-app
@@ -18,3 +19,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

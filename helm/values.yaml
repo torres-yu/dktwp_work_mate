@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: workengine1.kr-central-1.kcr.dev/workengine1-repo/eapproval-be-kep
+  repository: kakaowork-common.kr-central-2.kcr.dev/tools/approval-be
   tag: dev-20230324-01
   pullPolicy: IfNotPresent
 
