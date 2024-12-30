@@ -1,5 +1,7 @@
 replicaCount: 2
 
+namespace: approval-sandbox
+
 image:
   repository: kakaowork-common.kr-central-2.kcr.dev/tools/approval-be
   tag: dev-20230324-01
@@ -88,3 +90,97 @@ affinity:
               operator: In
               values:
                 - common-worker
+
+ingress:
+  enabled: true
+  hosts:
+    - host: approval.dev.kakaowork.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: eapproval-be-kep-dev-svc
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: eapproval-fe-kep-pc-dev-svc
+                port:
+                  number: 80
+    - host: m-approval.dev.kakaowork.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: eapproval-be-kep-dev-svc
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: eapproval-fe-kep-pc-dev-svc
+                port:
+                  number: 80
+    - host: approval-dev.we.kakaowork.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: eapproval-be-kep-dev-svc
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: eapproval-fe-kep-pc-dev-svc
+                port:
+                  number: 80
+    - host: m-approval-dev.we.kakaowork.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: eapproval-be-kep-dev-svc
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: eapproval-fe-kep-pc-dev-svc
+                port:
+                  number: 80
+    - host: approval-admin-dev.we.kakaowork.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: eapproval-be-kep-dev-svc
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: eapproval-fe-kep-pc-dev-svc
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - approval.dev.kakaowork.com
+        - m-approval.dev.kakaowork.com
+      secretName: kw-dev-cert-tls-20230630

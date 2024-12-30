@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-config
-  namespace: approval-sandbox
+  namespace: {{ .Values.namespace }}
   labels:
     app.kubernetes.io/name: eapproval
 data:
