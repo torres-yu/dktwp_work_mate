@@ -9,9 +9,10 @@ spec:
     helm:
       valueFiles:
         - helm/values.yaml
-    repoURL: 'github.dktechin.in/torres-bro/eapproval-test'
-    targetRevision: HEAD
-    path: my-java-app
+#    repoURL: https://
+      repoURL: https://github.com/torres-yu/dktwp_work_mate.git
+    targetRevision: master
+    path: helm
   destination:
     server: 'kw-sandbox-admin@kw-sandbox'
     namespace: approval-sandbox
