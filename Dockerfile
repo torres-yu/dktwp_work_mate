@@ -10,7 +10,7 @@ COPY src src
 # 작업 디렉터리 설정
 WORKDIR /
 RUN chmod +x ./gradlew
-RUN ./gradlew clean :build -x test
+RUN ./gradlew clean :bootJar
 RUN pwd
 
 # Gradle 빌드 결과물 복사
